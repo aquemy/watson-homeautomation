@@ -3,7 +3,7 @@
 This is a mockup and demonstration of an intelligent home automation system using Watson services.
 Currently, the only thing it can do is to understand vocal requests in natural language to play music.
 
-## How does it workers?
+## How does it works?
 
 - In browser, using HTML5 + Javascript, voice is recorded and streamed to a NodeJS server.
 - This NodeJS server calls Speech-To-Text to obtain a transcript of the record.
@@ -16,40 +16,45 @@ Every component, including the frontend, is managed by a Crossbar.io router.
 
 ## Installation
 
-1.Get your free AlchemyAPI key here: http://www.alchemyapi.com/api/register.html
+1. Get your free AlchemyAPI key here: http://www.alchemyapi.com/api/register.html
 
 2. Put your key in ```.crossbar/api_key.txt```.
 
 3. Create a Bluemix account. Sign up in Bluemix or use an existing account. Watson services in beta are free to use, as are GA services in the standard plan below a certain usage threshold.
 
-4. If it is not already installed on your system, download and install the Cloud-foundry CLI tool.
+4. If it is not already installed on your system, download and install the [Cloud-foundry CLI][cloud_foundry] tool.
 
 5. If it is not already installed on your system, install Node.js. Installing Node.js will also install the npm command. Insure npm is at least ```v0.12``.
 
-6 Connect to Bluemix by running the following commands in a terminal window:
+6. Connect to Bluemix by running the following commands in a terminal window:
 
-$ cf api https://api.ng.bluemix.net
-$ cf login -u <your-Bluemix-ID> -p <your-Bluemix-password>
+    ```
+    $ cf api https://api.ng.bluemix.net
+    $ cf login -u <your-Bluemix-ID> -p <your-Bluemix-password>
+    ```
 
-Create an instance of the Speech to Text in Bluemix by running the following command:
+7. Create an instance of the Speech to Text in Bluemix by running the following command:
 
-$ cf create-service speech_to_text standard speech-to-text-service
+    ```
+    $ cf create-service speech_to_text standard speech-to-text-service
+    ```
 
-**Note:** You will see a message that states "Attention: The plan standard of service speech_to_text is not free. The instance speech-to-text-service will incur a cost. Contact your administrator if you think this is in error.". Transcription of the first 1000 minutes of audio per month to the Speech to Text service are free under the standard plan, so there will be no charge if you remain below this limit.
+8. Push the updated application live by running the following command:
 
-7. Push the updated application live by running the following command:
+    ```
+    $ cf push
+    ```
 
-$ cf push
+9. Add your speech-to-text instance credentials (found on Bluemix website) to ```server/server.js```.
 
+10. Add your Youtube API key and AudioDB API key respectively to ```actions/youtube.py``` and ```actions/artists.py```.
 
-8. Add your speech-to-text instance credentials (found on Bluemix website) to ```server/server.js```.
+11. Install dependencies:
 
-9. Add your Youtube API key and AudioDB API key respectively to ```actions/youtube.py``` and ```actions/artists.py```.
-
-10.Install dependencies:
-
+    ```
     npm install
     python setup.py install
+    ```
 
 
 ## Running the application
