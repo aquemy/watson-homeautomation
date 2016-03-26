@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Watson Home Automation</title>
+
+    <link rel="stylesheet" href="bootstrap-3.2.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style/site.css">
+
+    <link rel="icon" type="image/png"  href="img/icon.png">
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/binary.js"></script>
+    <script src="js/re-sampler.js"></script>
+    <script src="js/site.js"></script>
+
+    <script>AUTOBAHN_DEBUG = true;</script>
+    <script src="http://autobahn.s3.amazonaws.com/autobahnjs/latest/autobahn.min.jgz"></script>
+
+    <script>
+    window.addEventListener("load", function(){
+         var wsuri;
+         if (document.location.origin == "file://") {
+            wsuri = "ws://127.0.0.1:8080/ws";
+         } else {
+            wsuri = (document.location.protocol === "http:" ? "ws:" : "wss:") + "//" +
+                        document.location.host + "/ws";
+         }
+         var connection = new autobahn.Connection({
+            url: wsuri,
+            realm: "realm1"
+         });
+         connection.onopen = function (session, details) {
+            console.log("Connected");
+            document.getElementById("send").onclick =  function() {
+            transcript = document.getElementById("form-container").value
+                session.call("actionner.trigger", [transcript]).then(session.log, session.log);
+            };
+         };
+         connection.onclose = function (reason, details) {
+            console.log("Connection lost: " + reason);
+         }
+         connection.open();
+
+
+      });
+      </script>
+</head>
+<body>
+<div class="container">
+    <div class="page-header">
+      <h1><span class="glyphicon"><img src="img/icon.png" /></span> IBM Watson Home Automation <small>Realtime voice controller</small></h1>
+    </div>
+
+    <button class="btn btn-primary" id="start-rec-btn">Start Recording</button>
+    <button class="btn btn-primary" id="stop-rec-btn">Stop Recording</button>
+
+    <div id="canvas-container">
+        <canvas width="600" height="100" id="canvas"></canvas>
+    </div>
+
+    <form>
+        <input id="form-container" type="text"> <input id="send" class="btn btn-primary " type="button" value="Send">
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "name": "IBMWatsonHomeAutomation",
+  "version": "1.0.0",
+  "description": "IBM Watson Home Automation",
+  "main": "server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aquemy/todo.git"
+  },
+  "author": "aquemy",
+  "license": "none",
+  "bugs": {
+    "url": "https://github.com/aquemy/todo/issues"
+  },
+  "homepage": "https://github.com/aquemy/todo",
+  "dependencies": {
+    "binaryjs": "^0.2.1",
+    "connect": "^3.3.4",
+    "opener": "^1.4.1",
+    "serve-static": "^1.9.1",
+    "wav": "^0.1.2",
+    "autobahn": "^0.9.5"
+  }
+}
